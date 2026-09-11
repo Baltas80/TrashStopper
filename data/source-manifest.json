@@ -18,7 +18,7 @@
       "redistribution": true,
       "attributionRequired": false,
       "status": "candidate-approved-for-ingestion",
-      "notes": "Repository states that the list is compiled from multiple free web sources. Provenance of each underlying source must be preserved where available; do not treat the aggregate as proof that every upstream source permits redistribution. Import into Trash Stopper only after retaining source/version/hash metadata."
+      "notes": "Repository states that the list is compiled from multiple free web sources. Preserve upstream provenance where available before import."
     },
     {
       "id": "rcs-cc0",
@@ -30,7 +30,7 @@
       "redistribution": true,
       "attributionRequired": false,
       "status": "candidate-secondary-source",
-      "notes": "RCS spam dataset. Use as a secondary signal; do not assume RCS abuse implies voice-call spam."
+      "notes": "RCS spam dataset. Secondary signal only; do not infer voice-call abuse automatically."
     },
     {
       "id": "fcc-public-complaints",
@@ -42,7 +42,43 @@
       "redistribution": "review-required",
       "attributionRequired": "review-required",
       "status": "candidate-requires-source-policy-review",
-      "notes": "Use aggregated complaint signals rather than treating a complaint as proof that a number belongs to a spammer."
+      "notes": "Use aggregated complaint signals; complaints are not proof of wrongdoing."
+    },
+    {
+      "id": "ftc-dnc-official",
+      "name": "FTC Do Not Call Reported Calls Data",
+      "repository": "https://www.ftc.gov/policy-notices/open-government/data-sets/do-not-call-data",
+      "geography": ["US"],
+      "license": "US-government-data",
+      "commercialUse": "review-required",
+      "redistribution": "review-required",
+      "attributionRequired": "review-required",
+      "status": "candidate-requires-source-policy-review",
+      "notes": "Official FTC complaint feed/API. Updated typically each weekday. Reported calls are explicitly unverified; scoring must treat them as signals, not proof."
+    },
+    {
+      "id": "ftc-robocall-cc0",
+      "name": "publicdatadepot/us-robocall-complaints-by-phone-number",
+      "repository": "https://huggingface.co/datasets/publicdatadepot/us-robocall-complaints-by-phone-number",
+      "geography": ["US"],
+      "license": "CC0-1.0",
+      "commercialUse": true,
+      "redistribution": true,
+      "attributionRequired": false,
+      "status": "candidate-approved-for-ingestion",
+      "notes": "Aggregated one-row-per-number dataset derived from FTC complaint data and NANPA prefix data. Treat complaint counts and subjects as probabilistic signals; preserve dataset version/hash and source provenance."
+    },
+    {
+      "id": "usacallerlookup-cc0",
+      "name": "USACallerLookup robocall complaint dataset/API",
+      "repository": "https://www.usacallerlookup.com/api/",
+      "geography": ["US"],
+      "license": "CC0-1.0",
+      "commercialUse": true,
+      "redistribution": true,
+      "attributionRequired": false,
+      "status": "candidate-approved-for-ingestion",
+      "notes": "Provider states the underlying FTC/NANPA dataset is CC0 and publishes downloadable bulk files. Prefer bulk snapshots over crawling the API; respect rate limits for lookups."
     },
     {
       "id": "callshield-reference",
@@ -54,7 +90,7 @@
       "redistribution": "do-not-import-until-audited",
       "attributionRequired": "audit-required",
       "status": "reference-only",
-      "notes": "Useful architecture and source-manifest model. Repository contains aggregated data from multiple upstream sources, so code/data rights must be evaluated independently."
+      "notes": "Architecture/source-manifest reference. Evaluate every upstream dataset independently before reuse."
     }
   ],
   "excludedSources": [
@@ -65,6 +101,10 @@
     {
       "name": "GPL-only call-blocker code",
       "reason": "Reference concepts only unless Trash Stopper licensing is deliberately made compatible."
+    },
+    {
+      "name": "Lista Hũ",
+      "reason": "CC BY-NC-SA data is incompatible with the intended commercial redistribution model."
     }
   ]
 }
