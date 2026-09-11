@@ -8,12 +8,10 @@ import androidx.compose.ui.platform.LocalContext
 import com.pagrey.trashstopper.data.CallEventEntity
 import com.pagrey.trashstopper.data.TrashStopperDataStore
 import com.pagrey.trashstopper.ui.screens.common.SectionScreen
-import kotlinx.coroutines.launch
 
 @Composable
 fun ActivityScreen(modifier: Modifier = Modifier) {
     var events by remember { mutableStateOf<List<CallEventEntity>>(emptyList()) }
-    val scope = rememberCoroutineScope()
     val store = remember { TrashStopperDataStore(LocalContext.current) }
 
     LaunchedEffect(Unit) {
@@ -29,7 +27,7 @@ fun ActivityScreen(modifier: Modifier = Modifier) {
                 )
             }
         } else {
-            events.forEach { event ->
+            for (event in events) {
                 ElevatedCard(modifier = Modifier.fillMaxWidth()) {
                     ListItem(
                         headlineContent = { Text(event.phoneNumber) },
