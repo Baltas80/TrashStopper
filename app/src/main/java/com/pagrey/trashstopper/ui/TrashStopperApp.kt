@@ -12,7 +12,11 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.pagrey.trashstopper.ui.screens.activity.ActivityScreen
 import com.pagrey.trashstopper.ui.screens.home.HomeScreen
@@ -25,7 +29,10 @@ enum class TopLevelDestination(val label: String) {
 }
 
 @Composable
-fun TrashStopperApp() {
+fun TrashStopperApp(
+    darkTheme: Boolean = false,
+    onDarkThemeChange: (Boolean) -> Unit = {}
+) {
     var destination by rememberSaveable { mutableStateOf(TopLevelDestination.HOME) }
     Scaffold(
         bottomBar = {
@@ -48,12 +55,17 @@ fun TrashStopperApp() {
             }
         }
     ) { padding ->
+        val contentModifier = Modifier.padding(padding)
         when (destination) {
-            TopLevelDestination.HOME -> HomeScreen(modifier = Modifier.padding(padding))
-            TopLevelDestination.ACTIVITY -> ActivityScreen(modifier = Modifier.padding(padding))
-            TopLevelDestination.SEARCH -> SearchScreen(modifier = Modifier.padding(padding))
-            TopLevelDestination.PROTECTION -> ProtectionScreen(modifier = Modifier.padding(padding))
-            TopLevelDestination.SETTINGS -> SettingsScreen(modifier = Modifier.padding(padding))
+            TopLevelDestination.HOME -> HomeScreen(adsEnabled = true, modifier = contentModifier)
+            TopLevelDestination.ACTIVITY -> ActivityScreen(modifier = contentModifier)
+            TopLevelDestination.SEARCH -> SearchScreen(modifier = contentModifier)
+            TopLevelDestination.PROTECTION -> ProtectionScreen(modifier = contentModifier)
+            TopLevelDestination.SETTINGS -> SettingsScreen(
+                darkTheme = darkTheme,
+                onDarkThemeChange = onDarkThemeChange,
+                modifier = contentModifier
+            )
         }
     }
 }
