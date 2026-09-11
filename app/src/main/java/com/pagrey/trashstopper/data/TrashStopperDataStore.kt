@@ -2,6 +2,7 @@ package com.pagrey.trashstopper.data
 
 import android.content.Context
 import com.pagrey.trashstopper.screening.LocalReputationCache
+import com.pagrey.trashstopper.screening.LocalRuleCache
 
 class TrashStopperDataStore(context: Context) {
     private val database = AppDatabase.getInstance(context)
@@ -11,6 +12,10 @@ class TrashStopperDataStore(context: Context) {
 
     suspend fun warmReputationCache(cache: LocalReputationCache) {
         cache.putAll(numbers.getAll())
+    }
+
+    suspend fun warmRuleCache(cache: LocalRuleCache) {
+        cache.putAll(rules.getAll())
     }
 
     suspend fun saveNumber(number: NumberEntity) {
