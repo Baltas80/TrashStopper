@@ -49,4 +49,62 @@ class RuleAwareScreeningEngineTest {
         assertEquals(85, result.riskScore)
         assertEquals("riesgo-critico", result.reason)
     }
+
+    @Test
+    fun automaticProtectionDisabledAllowsReputationHit() {
+        val reputation = LocalReputationCache().apply {
+            put(NumberEntity(phoneNumber = "+34900123456", riskScore = 90))
+        }
+        val policy = ProtectionPolicy().apply { automaticProtection = false }
+
+        val result = RuleAwareScreeningEngine(reputation, LocalRuleCache(), policy)
+            .evaluate("+34900123456")
+
+        assertEquals(ScreeningDecision.Action.ALLOW, result.action)
+        assertEquals("automatic-protection-disabled", result.reason)
+    }
+
+    @Test
+    fun unknownBlockingBlocksNumberWithoutLocalReputation() {
+        val policy = ProtectionPolicy().apply { unknownBlocking = true }
+
+        val result = RuleAwareScreeningEngine(
+            LocalReputationCache(),
+            LocalRuleCache(),
+            policy
+        ).evaluate("+34600000000")
+
+        assertEquals(ScreeningDecision.Action.BLOCK, result.action)
+        assertEquals("unknown-number-policy", result.reason)
+    }
+
+    @Test
+    fun disabledSpamPolicyAllowsSpamReputation() {
+        val reputation = LocalReputationCache().apply {
+            put(NumberEntity(phoneNumber = "+34900123456", riskScore = 90, category = "SPAM"))
+        }
+        val policy = ProtectionPolicy().apply { spamBlocking = false }
+
+        val result = RuleAwareScreeningEngine(reputation, LocalRuleCache(), policy)
+            .evaluate("+34900123456")
+
+        assertEquals(ScreeningDecision.Action.ALLOW, result.action)
+        assertEquals(90, result.riskScore)
+        assertEquals("category-policy-disabled", result.reason)
+    }
+
+    @Test
+    fun disabledFraudPolicyAllowsScamReputation() {
+        val reputation = LocalReputationCache().apply {
+            put(NumberEntity(phoneNumber = "+34900123456", riskScore = 90, category = "FRAUD"))
+        }
+        val policy = ProtectionPolicy().apply { fraudBlocking = false }
+
+        val result = RuleAwareScreeningEngine(reputation, LocalRuleCache(), policy)
+            .evaluate("+34900123456")
+
+        assertEquals(ScreeningDecision.Action.ALLOW, result.action)
+        assertEquals(90, result.riskScore)
+        assertEquals("category-policy-disabled", result.reason)
+    }
 }
