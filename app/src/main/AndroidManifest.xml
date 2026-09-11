@@ -3,6 +3,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name=".TrashStopperApplication"
         android:allowBackup="true"
         android:label="Trash Stopper"
         android:supportsRtl="true"
