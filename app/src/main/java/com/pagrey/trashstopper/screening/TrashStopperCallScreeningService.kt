@@ -7,6 +7,7 @@ import com.pagrey.trashstopper.data.TrashStopperDataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 /** Android Telecom entry point. Keep the decision path synchronous and local. */
@@ -50,5 +51,10 @@ class TrashStopperCallScreeningService : CallScreeningService() {
                 )
             }
         }
+    }
+
+    override fun onDestroy() {
+        scope.cancel()
+        super.onDestroy()
     }
 }
