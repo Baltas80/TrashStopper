@@ -3,6 +3,7 @@ package com.pagrey.trashstopper.data
 import android.content.Context
 import com.pagrey.trashstopper.screening.LocalReputationCache
 import com.pagrey.trashstopper.screening.LocalRuleCache
+import com.pagrey.trashstopper.screening.ScreeningRuntime
 
 class TrashStopperDataStore(context: Context) {
     private val database = AppDatabase.getInstance(context)
@@ -22,14 +23,17 @@ class TrashStopperDataStore(context: Context) {
 
     suspend fun saveNumber(number: NumberEntity) {
         numbers.upsert(number)
+        ScreeningRuntime.cache.put(number)
     }
 
     suspend fun saveRule(rule: RuleEntity) {
         rules.upsert(rule)
+        ScreeningRuntime.rules.put(rule)
     }
 
     suspend fun deleteRule(phoneNumber: String) {
         rules.delete(phoneNumber)
+        ScreeningRuntime.rules.remove(phoneNumber)
     }
 
     suspend fun getRule(phoneNumber: String): RuleEntity? = rules.find(phoneNumber)
