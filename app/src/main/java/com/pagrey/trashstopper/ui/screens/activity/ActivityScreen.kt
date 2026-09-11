@@ -12,9 +12,10 @@ import com.pagrey.trashstopper.ui.screens.common.SectionScreen
 @Composable
 fun ActivityScreen(modifier: Modifier = Modifier) {
     var events by remember { mutableStateOf<List<CallEventEntity>>(emptyList()) }
-    val store = remember { TrashStopperDataStore(LocalContext.current) }
+    val context = LocalContext.current
+    val store = remember(context) { TrashStopperDataStore(context) }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(store) {
         events = store.recentCallEvents(50)
     }
 
