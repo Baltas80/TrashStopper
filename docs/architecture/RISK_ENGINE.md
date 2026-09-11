@@ -18,5 +18,8 @@ The initial engine is deterministic and explainable. It returns a risk score fro
 - 50–74: HIGH
 - 75–100: CRITICAL
 
+## MVP weighting
+Community reports and recent activity carry the largest positive weight. Verified identities and explicit user trust reduce risk. Every score must retain its contributing signals for explainable UI.
+
 ## Safety rule
 Remote reputation may enrich a decision but must never be required for the critical incoming-call path. The engine must degrade safely when data is stale or unavailable.
