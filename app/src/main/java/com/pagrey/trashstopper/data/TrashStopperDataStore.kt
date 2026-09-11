@@ -18,6 +18,8 @@ class TrashStopperDataStore(context: Context) {
         cache.putAll(rules.getAll())
     }
 
+    suspend fun findNumber(phoneNumber: String): NumberEntity? = numbers.find(phoneNumber)
+
     suspend fun saveNumber(number: NumberEntity) {
         numbers.upsert(number)
     }
