@@ -1,6 +1,7 @@
 package com.pagrey.trashstopper
 
 import android.app.Application
+import com.pagrey.trashstopper.data.ProtectionPreferences
 import com.pagrey.trashstopper.data.TrashStopperDataStore
 import com.pagrey.trashstopper.screening.ScreeningRuntime
 import kotlinx.coroutines.CoroutineScope
@@ -13,6 +14,7 @@ class TrashStopperApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        ProtectionPreferences(this).loadIntoRuntime()
         val store = TrashStopperDataStore(this)
         applicationScope.launch {
             store.warmReputationCache(ScreeningRuntime.cache)
