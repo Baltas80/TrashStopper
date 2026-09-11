@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "allowOnlyExplicitlyLicensedSources": true,
+    "requireCommercialRedistribution": true,
+    "retainAttribution": true,
+    "noProprietaryScraping": true,
+    "noUnverifiedBulkImport": true
+  },
+  "sources": [
+    {
+      "id": "spain-community-unlicense",
+      "name": "mv12star/lista-telefonos-spam",
+      "repository": "https://github.com/mv12star/lista-telefonos-spam",
+      "geography": ["ES"],
+      "license": "Unlicense",
+      "commercialUse": true,
+      "redistribution": true,
+      "attributionRequired": false,
+      "status": "candidate-approved-for-ingestion",
+      "notes": "Repository states that the list is compiled from multiple free web sources. Provenance of each underlying source must be preserved where available; do not treat the aggregate as proof that every upstream source permits redistribution. Import into Trash Stopper only after retaining source/version/hash metadata."
+    },
+    {
+      "id": "rcs-cc0",
+      "name": "alterine0101/rcs-spam-blocklist",
+      "repository": "https://github.com/alterine0101/rcs-spam-blocklist",
+      "geography": ["IN"],
+      "license": "CC0-1.0",
+      "commercialUse": true,
+      "redistribution": true,
+      "attributionRequired": false,
+      "status": "candidate-secondary-source",
+      "notes": "RCS spam dataset. Use as a secondary signal; do not assume RCS abuse implies voice-call spam."
+    },
+    {
+      "id": "fcc-public-complaints",
+      "name": "FCC Consumer Complaints",
+      "repository": "https://opendata.fcc.gov/",
+      "geography": ["US"],
+      "license": "public-data-source",
+      "commercialUse": "review-required",
+      "redistribution": "review-required",
+      "attributionRequired": "review-required",
+      "status": "candidate-requires-source-policy-review",
+      "notes": "Use aggregated complaint signals rather than treating a complaint as proof that a number belongs to a spammer."
+    },
+    {
+      "id": "callshield-reference",
+      "name": "SysAdminDoc/CallShield database pipeline",
+      "repository": "https://github.com/SysAdminDoc/CallShield",
+      "geography": ["multi-region"],
+      "license": "audit-required",
+      "commercialUse": "do-not-import-until-audited",
+      "redistribution": "do-not-import-until-audited",
+      "attributionRequired": "audit-required",
+      "status": "reference-only",
+      "notes": "Useful architecture and source-manifest model. Repository contains aggregated data from multiple upstream sources, so code/data rights must be evaluated independently."
+    }
+  ],
+  "excludedSources": [
+    {
+      "name": "Truecaller proprietary databases",
+      "reason": "No scraping or unauthorized redistribution. Commercial use requires an explicit agreement."
+    },
+    {
+      "name": "GPL-only call-blocker code",
+      "reason": "Reference concepts only unless Trash Stopper licensing is deliberately made compatible."
+    }
+  ]
+}
