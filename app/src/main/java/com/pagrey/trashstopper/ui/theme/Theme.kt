@@ -31,7 +31,7 @@ private val DarkColors = darkColorScheme(
 
 @Composable
 fun TrashStopperTheme(
-    darkTheme: Boolean,
+    darkTheme: Boolean = false,
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
