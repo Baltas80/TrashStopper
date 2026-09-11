@@ -15,3 +15,6 @@ La aplicación debe poder identificar y decidir sobre una llamada sin depender d
 3. Sin datos personales innecesarios.
 4. Migraciones versionadas y testeadas.
 5. La UI no accede directamente a Room.
+
+## Contrato de fallo
+Si la red falla, la base local sigue siendo operativa y la protección continúa con la última reputación disponible.
