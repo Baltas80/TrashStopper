@@ -1,15 +1,24 @@
 package com.pagrey.trashstopper.screening
 
 /**
- * Deterministic first-pass engine. Remote reputation must never be required here.
- * The richer reputation repository will be injected in a later layer.
+ * Synchronous first-pass engine for the Telecom 5-second screening boundary.
+ * It only reads the in-memory cache; Room/network work stays outside this path.
  */
-class LocalScreeningEngine {
+class LocalScreeningEngine(
+    private val cache: LocalReputationCache = ScreeningRuntime.cache
+) {
     fun evaluate(number: String?): ScreeningDecision {
-        val normalized = number?.filter { it.isDigit() || it == '+' }.orEmpty()
+        val normalized = PhoneNumberNormalizer.normalize(number)
         if (normalized.isBlank()) {
             return ScreeningDecision(ScreeningDecision.Action.ALLOW, reason = "unknown-number")
         }
-        return ScreeningDecision(ScreeningDecision.Action.ALLOW, reason = "no-local-match")
+
+        val reputation = cache.get(normalized)
+        val result = RiskEngine.evaluate(reputation)
+        return ScreeningDecision(
+            action = result.action,
+            riskScore = result.score,
+            reason = result.reason
+        )
     }
 }
