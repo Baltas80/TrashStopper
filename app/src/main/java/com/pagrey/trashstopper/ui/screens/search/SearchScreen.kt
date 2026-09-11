@@ -25,8 +25,9 @@ fun SearchScreen(modifier: Modifier = Modifier) {
     var number by rememberSaveable { mutableStateOf("") }
     var result by remember { mutableStateOf<NumberEntity?>(null) }
     var searched by rememberSaveable { mutableStateOf(false) }
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val store = remember { TrashStopperDataStore(LocalContext.current) }
+    val store = remember(context) { TrashStopperDataStore(context) }
 
     SectionScreen("Buscar número", "Consulta la reputación antes de devolver una llamada.", modifier) {
         OutlinedTextField(
