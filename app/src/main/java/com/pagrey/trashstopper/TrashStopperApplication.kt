@@ -16,6 +16,7 @@ class TrashStopperApplication : Application() {
         val store = TrashStopperDataStore(this)
         applicationScope.launch {
             store.warmReputationCache(ScreeningRuntime.cache)
+            store.warmRuleCache(ScreeningRuntime.rules)
         }
     }
 }
