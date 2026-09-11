@@ -6,7 +6,16 @@ Trash Stopper is a privacy-first Android caller identification and spam/fraud pr
 
 ## Product direction
 
-The project is being designed visually first. Functionality will be implemented against the completed product and design system.
+The project is being designed visually first. Functionality is implemented behind the completed product and design system.
+
+### Current implementation
+- Material 3 light/dark UI foundation
+- Home, Activity, Search, Protection and Settings surfaces
+- Premium and Family product surfaces
+- Modular advertising surface
+- Android call-screening service skeleton
+- Local-first Room data layer in implementation branch
+- Automated Android CI with debug APK artifact
 
 ### Planned capabilities
 - Caller identification
@@ -25,7 +34,7 @@ The project is being designed visually first. Functionality will be implemented 
 
 - Android / Kotlin
 - Jetpack Compose
-- Material-based design system with an original Trash Stopper visual identity
+- Material 3 design system with an original Trash Stopper visual identity
 - Room for local data
 - CallScreeningService for real-time call decisions
 - Local risk/reputation engine with server synchronization
@@ -48,7 +57,3 @@ The project is being designed visually first. Functionality will be implemented 
 - **Free:** identification, basic protection, lookup, reporting, local protection and advertising where appropriate.
 - **Premium:** advanced automatic protection, enhanced reputation updates, predictive protection and ad-free experience.
 - **Family:** protection for multiple family members/devices and no advertising.
-
-## Status
-
-Design phase — repository initialized.
