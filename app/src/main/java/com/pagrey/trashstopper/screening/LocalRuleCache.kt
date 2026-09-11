@@ -9,5 +9,6 @@ class LocalRuleCache {
     fun put(rule: RuleEntity) { entries[rule.phoneNumber] = rule }
     fun putAll(rules: List<RuleEntity>) { rules.forEach(::put) }
     fun get(phoneNumber: String): RuleEntity? = entries[phoneNumber]
+    fun remove(phoneNumber: String) { entries.remove(phoneNumber) }
     fun clear() = entries.clear()
 }
