@@ -3,6 +3,7 @@ package com.pagrey.trashstopper.ui
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Call
+import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Security
@@ -21,11 +22,12 @@ import androidx.compose.ui.Modifier
 import com.pagrey.trashstopper.ui.screens.activity.ActivityScreen
 import com.pagrey.trashstopper.ui.screens.home.HomeScreen
 import com.pagrey.trashstopper.ui.screens.protection.ProtectionScreen
+import com.pagrey.trashstopper.ui.screens.reports.ReportsScreen
 import com.pagrey.trashstopper.ui.screens.search.SearchScreen
 import com.pagrey.trashstopper.ui.screens.settings.SettingsScreen
 
 enum class TopLevelDestination(val label: String) {
-    HOME("Inicio"), ACTIVITY("Actividad"), SEARCH("Buscar"), PROTECTION("Protección"), SETTINGS("Ajustes")
+    HOME("Inicio"), ACTIVITY("Actividad"), SEARCH("Buscar"), REPORTS("Reportar"), PROTECTION("Protección"), SETTINGS("Ajustes")
 }
 
 @Composable
@@ -42,6 +44,7 @@ fun TrashStopperApp(
                         TopLevelDestination.HOME -> Icons.Outlined.Home
                         TopLevelDestination.ACTIVITY -> Icons.Outlined.Call
                         TopLevelDestination.SEARCH -> Icons.Outlined.Search
+                        TopLevelDestination.REPORTS -> Icons.Outlined.Flag
                         TopLevelDestination.PROTECTION -> Icons.Outlined.Security
                         TopLevelDestination.SETTINGS -> Icons.Outlined.Settings
                     }
@@ -60,6 +63,7 @@ fun TrashStopperApp(
             TopLevelDestination.HOME -> HomeScreen(adsEnabled = true, modifier = contentModifier)
             TopLevelDestination.ACTIVITY -> ActivityScreen(modifier = contentModifier)
             TopLevelDestination.SEARCH -> SearchScreen(modifier = contentModifier)
+            TopLevelDestination.REPORTS -> ReportsScreen(modifier = contentModifier)
             TopLevelDestination.PROTECTION -> ProtectionScreen(modifier = contentModifier)
             TopLevelDestination.SETTINGS -> SettingsScreen(
                 darkTheme = darkTheme,
