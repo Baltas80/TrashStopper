@@ -2,29 +2,31 @@ package com.pagrey.trashstopper.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Trash Stopper brand palette. Semantic risk colors are supplementary; UI must
-// always pair risk with text/iconography as defined by the design system.
+// Trash Stopper premium palette: deep navy surfaces with restrained electric blue accents.
 val TrashPrimaryLight = Color(0xFF315BFF)
 val TrashOnPrimaryLight = Color(0xFFFFFFFF)
 val TrashPrimaryContainerLight = Color(0xFFDDE4FF)
 val TrashOnPrimaryContainerLight = Color(0xFF07164D)
-val TrashBackgroundLight = Color(0xFFF8F9FC)
+val TrashBackgroundLight = Color(0xFFF4F6FB)
 val TrashSurfaceLight = Color(0xFFFFFFFF)
-val TrashSurfaceVariantLight = Color(0xFFE9ECF4)
-val TrashOnSurfaceLight = Color(0xFF171A22)
-val TrashOnSurfaceVariantLight = Color(0xFF454954)
+val TrashSurfaceVariantLight = Color(0xFFE5E9F2)
+val TrashOnSurfaceLight = Color(0xFF121722)
+val TrashOnSurfaceVariantLight = Color(0xFF4B5261)
 
-val TrashPrimaryDark = Color(0xFFB7C4FF)
-val TrashOnPrimaryDark = Color(0xFF102A8B)
-val TrashPrimaryContainerDark = Color(0xFF203C9C)
-val TrashOnPrimaryContainerDark = Color(0xFFDDE4FF)
-val TrashBackgroundDark = Color(0xFF101217)
-val TrashSurfaceDark = Color(0xFF17191F)
-val TrashSurfaceVariantDark = Color(0xFF292C34)
-val TrashOnSurfaceDark = Color(0xFFE4E2EA)
-val TrashOnSurfaceVariantDark = Color(0xFFC4C5CE)
+val TrashPrimaryDark = Color(0xFF8EA2FF)
+val TrashOnPrimaryDark = Color(0xFF07133F)
+val TrashPrimaryContainerDark = Color(0xFF263B91)
+val TrashOnPrimaryContainerDark = Color(0xFFE7EBFF)
+val TrashBackgroundDark = Color(0xFF080B12)
+val TrashSurfaceDark = Color(0xFF111722)
+val TrashSurfaceVariantDark = Color(0xFF1A2230)
+val TrashOnSurfaceDark = Color(0xFFF0F3FA)
+val TrashOnSurfaceVariantDark = Color(0xFFADB6C8)
 
-val RiskSafe = Color(0xFF167C4A)
-val RiskCaution = Color(0xFF8A5A00)
-val RiskHigh = Color(0xFFB54708)
-val RiskCritical = Color(0xFFB42318)
+val TrashSurfaceElevatedDark = Color(0xFF151D2A)
+val TrashOutlineDark = Color(0xFF303B4D)
+
+val RiskSafe = Color(0xFF43D17B)
+val RiskCaution = Color(0xFFF4C95D)
+val RiskHigh = Color(0xFFFFA24D)
+val RiskCritical = Color(0xFFFF6B6B)
