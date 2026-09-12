@@ -1,7 +1,7 @@
 package com.pagrey.trashstopper.reputation
 
-import androidx.room.withTransaction
 import android.content.Context
+import androidx.room.withTransaction
 import com.pagrey.trashstopper.data.AppDatabase
 import com.pagrey.trashstopper.screening.ScreeningRuntime
 
@@ -15,7 +15,9 @@ class ReputationSnapshotImporter(context: Context) {
             numbers.clear()
             payload.numbers.forEach { numbers.upsert(it) }
         }
-        ScreeningRuntime.cache.clear()
-        ScreeningRuntime.cache.putAll(numbers.getAll())
+
+        // Publish the new in-memory snapshot in one atomic operation. Never clear
+        // the cache first: the screening service may be invoked at any time.
+        ScreeningRuntime.cache.replaceAll(payload.numbers)
     }
 }
