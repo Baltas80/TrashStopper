@@ -13,7 +13,7 @@ class ReputationSnapshotImporter(context: Context) {
     suspend fun import(payload: ReputationSnapshotPayload) {
         database.withTransaction {
             numbers.clear()
-            payload.numbers.forEach { numbers.upsert(it) }
+            numbers.upsertAll(payload.numbers)
         }
 
         // Publish the new in-memory snapshot in one atomic operation. Never clear
