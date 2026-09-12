@@ -26,4 +26,6 @@ object ReputationSyncScheduler {
             request
         )
     }
+
+    internal fun workNameForTests(): String = WORK_NAME
 }
