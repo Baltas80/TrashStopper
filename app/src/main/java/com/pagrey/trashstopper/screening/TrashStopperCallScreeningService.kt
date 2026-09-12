@@ -29,10 +29,11 @@ class TrashStopperCallScreeningService : CallScreeningService() {
             ScreeningDecision.Action.ALLOW -> Unit
             ScreeningDecision.Action.SILENCE -> response.setSilenceCall(true)
             ScreeningDecision.Action.BLOCK -> {
+                // A third-party screening service may disallow and reject the call.
+                // Do not attempt to hide the blocked call from the system call log.
                 response.setDisallowCall(true)
                 response.setRejectCall(true)
                 response.setSkipNotification(true)
-                response.setSkipCallLog(false)
             }
         }
 
