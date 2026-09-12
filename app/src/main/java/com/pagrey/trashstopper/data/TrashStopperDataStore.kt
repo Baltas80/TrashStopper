@@ -10,6 +10,7 @@ class TrashStopperDataStore(context: Context) {
     private val numbers = database.numberDao()
     private val rules = database.ruleDao()
     private val events = database.callEventDao()
+    private val reports = database.reportDao()
 
     suspend fun warmReputationCache(cache: LocalReputationCache) {
         cache.putAll(numbers.getAll())
@@ -45,4 +46,10 @@ class TrashStopperDataStore(context: Context) {
     }
 
     suspend fun recentCallEvents(limit: Int = 50): List<CallEventEntity> = events.recent(limit)
+
+    suspend fun saveReport(report: ReportEntity) {
+        reports.insert(report)
+    }
+
+    suspend fun recentReports(limit: Int = 50): List<ReportEntity> = reports.recent(limit)
 }
