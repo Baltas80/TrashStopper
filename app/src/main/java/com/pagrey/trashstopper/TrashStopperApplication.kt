@@ -4,6 +4,7 @@ import android.app.Application
 import com.pagrey.trashstopper.data.ProtectionPreferences
 import com.pagrey.trashstopper.data.TrashStopperDataStore
 import com.pagrey.trashstopper.screening.ScreeningRuntime
+import com.pagrey.trashstopper.sync.ReputationSyncScheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -20,5 +21,6 @@ class TrashStopperApplication : Application() {
             store.warmReputationCache(ScreeningRuntime.cache)
             store.warmRuleCache(ScreeningRuntime.rules)
         }
+        ReputationSyncScheduler.schedule(this)
     }
 }
