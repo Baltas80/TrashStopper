@@ -26,12 +26,13 @@ private val DarkColors = darkColorScheme(
     surface = TrashSurfaceDark,
     surfaceVariant = TrashSurfaceVariantDark,
     onSurface = TrashOnSurfaceDark,
-    onSurfaceVariant = TrashOnSurfaceVariantDark
+    onSurfaceVariant = TrashOnSurfaceVariantDark,
+    outline = TrashOutlineDark
 )
 
 @Composable
 fun TrashStopperTheme(
-    darkTheme: Boolean = false,
+    darkTheme: Boolean = true,
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
