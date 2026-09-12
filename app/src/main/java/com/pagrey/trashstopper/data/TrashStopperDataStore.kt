@@ -38,6 +38,8 @@ class TrashStopperDataStore(context: Context) {
 
     suspend fun getRule(phoneNumber: String): RuleEntity? = rules.find(phoneNumber)
 
+    suspend fun getAllRules(): List<RuleEntity> = rules.getAll()
+
     suspend fun saveCallEvent(event: CallEventEntity) {
         events.insert(event)
     }
