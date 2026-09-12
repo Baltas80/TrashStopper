@@ -1,5 +1,6 @@
 package com.pagrey.trashstopper.data
 
+import java.io.File
 import java.nio.file.Files
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertFalse
