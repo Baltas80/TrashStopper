@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
     entities = [NumberEntity::class, RuleEntity::class, CallEventEntity::class, ReportEntity::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -27,6 +27,17 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        private val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(
+                    "DELETE FROM reports WHERE id NOT IN (SELECT MAX(id) FROM reports GROUP BY phoneNumber, category, createdAt)"
+                )
+                database.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS index_reports_phoneNumber_category_createdAt ON reports(phoneNumber, category, createdAt)"
+                )
+            }
+        }
+
         @Volatile private var INSTANCE: AppDatabase? = null
 
         fun getInstance(context: Context): AppDatabase =
@@ -35,7 +46,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "trashstopper.db"
-                ).addMigrations(MIGRATION_1_2)
+                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                     .build().also { INSTANCE = it }
             }
     }
