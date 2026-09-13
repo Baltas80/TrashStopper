@@ -11,7 +11,7 @@ class ReputationSyncWorker(
     workerParams: WorkerParameters
 ) : CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result {
-        val provider = SpainSpamListProvider()
+        val provider = ReputationSyncRuntime.provider ?: SpainSpamListProvider()
         return try {
             val payload = provider.fetch(applicationContext)
             ReputationSnapshotImporter(applicationContext).import(payload)
