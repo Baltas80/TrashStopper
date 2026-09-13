@@ -14,12 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.pagrey.trashstopper.ui.components.AdBanner
 import com.pagrey.trashstopper.ui.components.ProtectionStatusCard
 
 @Composable
 fun HomeScreen(
-    adsEnabled: Boolean,
     protectionActive: Boolean = true,
     modifier: Modifier = Modifier
 ) {
@@ -73,6 +71,5 @@ fun HomeScreen(
                 }
             }
         }
-        AdBanner(visible = adsEnabled)
     }
 }
