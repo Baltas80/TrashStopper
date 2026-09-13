@@ -1,5 +1,6 @@
 package com.pagrey.trashstopper.screening
 
+import android.os.Build
 import android.telecom.Call
 import android.telecom.CallScreeningService
 import com.pagrey.trashstopper.data.CallEventEntity
@@ -16,7 +17,9 @@ class TrashStopperCallScreeningService : CallScreeningService() {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     override fun onScreenCall(callDetails: Call.Details) {
-        if (callDetails.callDirection != Call.Details.DIRECTION_INCOMING) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
+            callDetails.callDirection != Call.Details.DIRECTION_INCOMING
+        ) {
             respondToCall(callDetails, CallResponse.Builder().build())
             return
         }
