@@ -49,9 +49,7 @@ class TrashStopperDataStore(context: Context) {
 
     suspend fun recentCallEvents(limit: Int = 50): List<CallEventEntity> = events.recent(limit)
 
-    suspend fun saveReport(report: ReportEntity) {
-        reports.insert(report)
-    }
+    suspend fun saveReport(report: ReportEntity): Boolean = reports.insert(report) != -1L
 
     suspend fun recentReports(limit: Int = 50): List<ReportEntity> = reports.recent(limit)
 
@@ -68,7 +66,16 @@ class TrashStopperDataStore(context: Context) {
                 "TELEMARKETING" -> 25
                 else -> 20
             }
-            val entity = if (existing == null) {
+            val report = ReportEntity(
+                phoneNumber = normalized,
+                category = category,
+                note = note?.trim()?.takeIf { it.isNotEmpty() },
+                createdAt = now
+            )
+            val reportId = reports.insert(report)
+            if (reportId == -1L) return@withTransaction null
+
+            if (existing == null) {
                 NumberEntity(
                     phoneNumber = normalized,
                     country = if (normalized.length == 9) "ES" else null,
@@ -87,11 +94,9 @@ class TrashStopperDataStore(context: Context) {
                     lastReportedAt = now,
                     updatedAt = now
                 )
-            }
-            numbers.upsert(entity)
-            reports.insert(ReportEntity(phoneNumber = normalized, category = category, note = note?.trim()?.takeIf { it.isNotEmpty() }, createdAt = now))
-            entity
+            }.also(numbers::upsert)
         }
+        updated ?: return false
         ScreeningRuntime.cache.put(updated)
         return true
     }
