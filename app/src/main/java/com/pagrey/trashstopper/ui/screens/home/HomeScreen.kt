@@ -23,15 +23,17 @@ fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxSize().padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        modifier = modifier.fillMaxSize().padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(18.dp)
     ) {
-        Text("Trash Stopper", style = MaterialTheme.typography.headlineMedium)
-        Text(
-            "Identifica. Advierte. Bloquea.",
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.primary
-        )
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text("Trash Stopper", style = MaterialTheme.typography.headlineLarge)
+            Text(
+                "Identifica. Advierte. Bloquea.",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
         ProtectionStatusCard(
             active = protectionActive,
             lastUpdate = "Actualizada recientemente",
@@ -43,7 +45,7 @@ fun HomeScreen(
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
         ) {
             Column(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier.padding(18.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Text("Defensa activa", style = MaterialTheme.typography.titleMedium)
@@ -51,7 +53,7 @@ fun HomeScreen(
                     "Spam, fraude, llamadas automatizadas y números desconocidos se evalúan con reglas locales.",
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     Text("● Base local", style = MaterialTheme.typography.labelMedium)
                     Text("● Sincronización", style = MaterialTheme.typography.labelMedium)
                 }
