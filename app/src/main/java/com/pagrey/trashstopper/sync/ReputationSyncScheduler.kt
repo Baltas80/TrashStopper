@@ -1,6 +1,7 @@
 package com.pagrey.trashstopper.sync
 
 import android.content.Context
+import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
@@ -18,6 +19,7 @@ object ReputationSyncScheduler {
 
         val request = PeriodicWorkRequestBuilder<ReputationSyncWorker>(24, TimeUnit.HOURS)
             .setConstraints(constraints)
+            .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 30, TimeUnit.SECONDS)
             .build()
 
         WorkManager.getInstance(context.applicationContext).enqueueUniquePeriodicWork(

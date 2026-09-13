@@ -1,5 +1,6 @@
 package com.pagrey.trashstopper.screening
 
+import android.os.Build
 import android.telecom.Call
 import android.telecom.CallScreeningService
 import com.pagrey.trashstopper.data.CallEventEntity
@@ -16,7 +17,9 @@ class TrashStopperCallScreeningService : CallScreeningService() {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     override fun onScreenCall(callDetails: Call.Details) {
-        if (callDetails.callDirection != Call.Details.DIRECTION_INCOMING) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
+            callDetails.callDirection != Call.Details.DIRECTION_INCOMING
+        ) {
             respondToCall(callDetails, CallResponse.Builder().build())
             return
         }
@@ -27,7 +30,13 @@ class TrashStopperCallScreeningService : CallScreeningService() {
 
         when (decision.action) {
             ScreeningDecision.Action.ALLOW -> Unit
-            ScreeningDecision.Action.SILENCE -> response.setSilenceCall(true)
+            ScreeningDecision.Action.SILENCE -> {
+                // setSilenceCall was introduced in API 29. On older devices the
+                // screening service cannot request silence, so leave the call allowed.
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    response.setSilenceCall(true)
+                }
+            }
             ScreeningDecision.Action.BLOCK -> {
                 // A third-party screening service may disallow and reject the call.
                 // Do not attempt to hide the blocked call from the system call log.

@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            var darkTheme by rememberSaveable { mutableStateOf(false) }
+            var darkTheme by rememberSaveable { mutableStateOf(true) }
             TrashStopperTheme(darkTheme = darkTheme) {
                 TrashStopperApp(
                     darkTheme = darkTheme,

@@ -4,18 +4,40 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [NumberEntity::class, RuleEntity::class, CallEventEntity::class],
-    version = 1,
+    entities = [NumberEntity::class, RuleEntity::class, CallEventEntity::class, ReportEntity::class],
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun numberDao(): NumberDao
     abstract fun ruleDao(): RuleDao
     abstract fun callEventDao(): CallEventDao
+    abstract fun reportDao(): ReportDao
 
     companion object {
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(
+                    "CREATE TABLE IF NOT EXISTS reports (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, phoneNumber TEXT NOT NULL, category TEXT NOT NULL, note TEXT, createdAt INTEGER NOT NULL)"
+                )
+            }
+        }
+
+        private val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(
+                    "DELETE FROM reports WHERE id NOT IN (SELECT MAX(id) FROM reports GROUP BY phoneNumber, category, createdAt)"
+                )
+                database.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS index_reports_phoneNumber_category_createdAt ON reports(phoneNumber, category, createdAt)"
+                )
+            }
+        }
+
         @Volatile private var INSTANCE: AppDatabase? = null
 
         fun getInstance(context: Context): AppDatabase =
@@ -24,7 +46,8 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "trashstopper.db"
-                ).build().also { INSTANCE = it }
+                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                    .build().also { INSTANCE = it }
             }
     }
 }

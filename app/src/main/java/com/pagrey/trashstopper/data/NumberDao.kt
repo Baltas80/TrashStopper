@@ -13,6 +13,9 @@ interface NumberDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(number: NumberEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertAll(numbers: List<NumberEntity>)
+
     @Query("SELECT * FROM numbers")
     suspend fun getAll(): List<NumberEntity>
 

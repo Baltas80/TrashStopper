@@ -1,8 +1,17 @@
 package com.pagrey.trashstopper.ui.screens.activity
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.pagrey.trashstopper.data.CallEventEntity
@@ -28,12 +37,26 @@ fun ActivityScreen(modifier: Modifier = Modifier) {
                 )
             }
         } else {
-            for (event in events) {
-                ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+            events.forEach { event ->
+                val riskContainer = when {
+                    event.riskScore >= 75 -> MaterialTheme.colorScheme.errorContainer
+                    event.riskScore >= 50 -> MaterialTheme.colorScheme.surfaceVariant
+                    else -> MaterialTheme.colorScheme.surface
+                }
+                ElevatedCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.elevatedCardColors(containerColor = riskContainer)
+                ) {
                     ListItem(
                         headlineContent = { Text(event.phoneNumber) },
                         supportingContent = { Text("${event.result} · Riesgo ${event.riskScore}/100") },
-                        trailingContent = { Text(event.action) }
+                        trailingContent = {
+                            Text(
+                                event.action,
+                                style = MaterialTheme.typography.labelLarge,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
                     )
                 }
             }

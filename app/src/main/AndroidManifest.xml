@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name=".TrashStopperApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:label="Trash Stopper"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrashStopper">
