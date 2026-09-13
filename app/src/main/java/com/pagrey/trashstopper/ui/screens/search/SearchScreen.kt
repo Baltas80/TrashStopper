@@ -21,8 +21,8 @@ import androidx.compose.ui.platform.LocalContext
 import com.pagrey.trashstopper.data.NumberEntity
 import com.pagrey.trashstopper.data.TrashStopperDataStore
 import com.pagrey.trashstopper.reputation.ReputationSnapshotImporter
-import com.pagrey.trashstopper.reputation.SpainSpamListProvider
 import com.pagrey.trashstopper.screening.PhoneNumberNormalizer
+import com.pagrey.trashstopper.sync.SpainSpamListProvider
 import com.pagrey.trashstopper.ui.screens.common.SectionScreen
 import kotlinx.coroutines.launch
 
