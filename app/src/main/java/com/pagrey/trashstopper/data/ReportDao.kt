@@ -11,4 +11,7 @@ interface ReportDao {
 
     @Query("SELECT * FROM reports ORDER BY createdAt DESC LIMIT :limit")
     suspend fun recent(limit: Int = 50): List<ReportEntity>
+
+    @Query("SELECT * FROM reports ORDER BY createdAt ASC")
+    suspend fun all(): List<ReportEntity>
 }
