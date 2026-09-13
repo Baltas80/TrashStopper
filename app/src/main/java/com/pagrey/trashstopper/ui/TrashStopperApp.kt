@@ -60,7 +60,7 @@ fun TrashStopperApp(
     ) { padding ->
         val contentModifier = Modifier.padding(padding)
         when (destination) {
-            TopLevelDestination.HOME -> HomeScreen(adsEnabled = true, modifier = contentModifier)
+            TopLevelDestination.HOME -> HomeScreen(modifier = contentModifier)
             TopLevelDestination.ACTIVITY -> ActivityScreen(modifier = contentModifier)
             TopLevelDestination.SEARCH -> SearchScreen(modifier = contentModifier)
             TopLevelDestination.REPORTS -> ReportsScreen(modifier = contentModifier)
