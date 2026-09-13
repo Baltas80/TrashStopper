@@ -75,7 +75,7 @@ class TrashStopperDataStore(context: Context) {
             val reportId = reports.insert(report)
             if (reportId == -1L) return@withTransaction null
 
-            if (existing == null) {
+            val entity = if (existing == null) {
                 NumberEntity(
                     phoneNumber = normalized,
                     country = if (normalized.length == 9) "ES" else null,
@@ -94,7 +94,9 @@ class TrashStopperDataStore(context: Context) {
                     lastReportedAt = now,
                     updatedAt = now
                 )
-            }.also(numbers::upsert)
+            }
+            numbers.upsert(entity)
+            entity
         }
         updated ?: return false
         ScreeningRuntime.cache.put(updated)
