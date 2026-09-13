@@ -2,12 +2,13 @@ package com.pagrey.trashstopper.data
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
 interface ReportDao {
-    @Insert
-    suspend fun insert(report: ReportEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(report: ReportEntity): Long
 
     @Query("SELECT EXISTS(SELECT 1 FROM reports WHERE phoneNumber = :phoneNumber AND category = :category AND createdAt = :createdAt)")
     suspend fun exists(phoneNumber: String, category: String, createdAt: Long): Boolean
