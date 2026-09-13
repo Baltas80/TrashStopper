@@ -9,6 +9,9 @@ interface ReportDao {
     @Insert
     suspend fun insert(report: ReportEntity)
 
+    @Query("SELECT EXISTS(SELECT 1 FROM reports WHERE phoneNumber = :phoneNumber AND category = :category AND createdAt = :createdAt)")
+    suspend fun exists(phoneNumber: String, category: String, createdAt: Long): Boolean
+
     @Query("SELECT * FROM reports ORDER BY createdAt DESC LIMIT :limit")
     suspend fun recent(limit: Int = 50): List<ReportEntity>
 
