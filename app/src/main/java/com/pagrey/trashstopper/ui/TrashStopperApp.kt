@@ -32,7 +32,7 @@ enum class TopLevelDestination(val label: String) {
 
 @Composable
 fun TrashStopperApp(
-    darkTheme: Boolean = false,
+    darkTheme: Boolean = true,
     onDarkThemeChange: (Boolean) -> Unit = {}
 ) {
     var destination by rememberSaveable { mutableStateOf(TopLevelDestination.HOME) }
